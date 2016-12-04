@@ -4,41 +4,46 @@ MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
 ENV GOROOT=/usr/lib/go \
     GOPATH=/go \
     PATH=$PATH:$GOROOT/bin:$GOPATH/bin \
-    XMLSTARLET_VERSION=1.6.1-r1
+    UID=1000 \
+    GID=1000 \
+    HOME=/var/syncthing/
 
-ADD start.sh /start.sh
-
-RUN chmod +x /start.sh && \
-    apk add --no-cache libxml2 libxslt && \
+RUN apk add --no-cache libxml2 libxslt && \
     apk add --no-cache --virtual .build-dependencies curl jq git go ca-certificates && \
-    adduser -D syncthing && \
+    addgroup -g ${GID} syncthing && \
+    adduser -D -u ${UID} -h ${HOME} -G syncthing syncthing && \
 
     # compile syncthing
-    VERSION=`curl -s https://api.github.com/repos/syncthing/syncthing/releases/latest | jq -r '.tag_name'` && \
     mkdir -p /go/src/github.com/syncthing && \
     cd /go/src/github.com/syncthing && \
     git clone https://github.com/syncthing/syncthing.git && \
     cd syncthing && \
-    git checkout $VERSION && \
+    git checkout  && \
     go run build.go && \
     mkdir -p /go/bin && \
-    mv bin/syncthing /go/bin/syncthing && \
-    chown syncthing:syncthing /go/bin/syncthing && \
-
-    # install xmlstarlet (used by start.sh script)
-    curl -sSL -o /tmp/xmlstarlet.apk https://github.com/menski/alpine-pkg-xmlstarlet/releases/download/${XMLSTARLET_VERSION}/xmlstarlet-${XMLSTARLET_VERSION}.apk && \
-    apk add --allow-untrusted /tmp/xmlstarlet.apk && \
-    rm /tmp/xmlstarlet.apk && \
+    mv bin/syncthing /usr/local/bin/syncthing && \
+    chown syncthing:syncthing /usr/local/bin/syncthing && \
 
     # cleanup
     rm -rf /go/pkg && \
     rm -rf /go/src && \
     apk del .build-dependencies
 
-WORKDIR /home/syncthing
+RUN apk add --no-cache python3 && \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --upgrade pip setuptools && \
+    pip3 install pyentrypoint
 
-VOLUME ["/home/syncthing/.config/syncthing", "/home/syncthing/Sync"]
+
+ADD entrypoint-config.yml /var/syncthing/
+
+WORKDIR /var/syncthing
+
+VOLUME ["/var/syncthing/.config/syncthing", "/var/syncthing/Sync"]
 
 EXPOSE 8384 22000 21027/udp
 
-CMD ["/start.sh"]
+ENTRYPOINT ["pyentrypoint"]
+
+CMD ["syncthing", "-gui-address=0.0.0.0:8384"]
