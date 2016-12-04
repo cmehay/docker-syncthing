@@ -3,7 +3,7 @@ version: '2'
 services:
 
   syncthing:
-    image: istepanov/syncthing
+    image: goldy/syncthing
     restart: always
     ports:
       - "22000:22000"
@@ -16,6 +16,8 @@ services:
       VIRTUAL_PORT: '8384'
       LETSENCRYPT_HOST: ${SYNCTHING_HOSTNAME}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}              # e.g. "myname@myemail.host". Required by Let's Encrypt.
+      ENTRYPOINT_USER: '1000'                              # optional. 1000 by default
+      ENTRYPOINT_GROUP: '1000'                             # optional. 1000 by default
 
   # Nginx proxy. Just official image, all configs are auto-generated (see below)
   nginx:
