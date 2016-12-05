@@ -16,7 +16,7 @@ Container based on https://github.com/istepanov/docker-syncthing
 
 Simpliest way to run this container is by using [docker-compose.yml](docker-compose.yml) file. Simply run:
 
-    wget https://raw.githubusercontent.com/istepanov/docker-syncthing/master/docker-compose.yml
+    wget https://raw.githubusercontent.com/cmehay/docker-syncthing/master/docker-compose.yml
     docker-compose up -d
 
 Then access Syncthing Web UI at [http://localhost:8384/]().
@@ -63,7 +63,7 @@ The image itself tends to be minimal and doesn't provide any HTTPS functionality
 
 The easiest way to do it is by using Let's Encrypt certifcates and 3 additional containers: [official Nginx image](https://hub.docker.com/_/nginx/), [jwilder/docker-gen](https://github.com/jwilder/docker-gen) image to auto-generate Nginx configs and [jrcs/letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion) image to auto-generate/auto-renew SSL certificates. To orchestrate all containers, we'll use [docker-compose-https.yml](docker-compose-https.yml) file:
 
-    wget https://raw.githubusercontent.com/istepanov/docker-syncthing/master/docker-compose-https.yml
+    wget https://raw.githubusercontent.com/cmehay/docker-syncthing/master/docker-compose-https.yml
 
     # before launching, we need to prepare 2 docker volumes:
     docker volume create --driver local --name certs
