@@ -1,5 +1,4 @@
 FROM alpine:3.4
-MAINTAINER Ilya Stepanov <dev@ilyastepanov.com>
 
 ENV GOROOT=/usr/lib/go \
     GOPATH=/go \

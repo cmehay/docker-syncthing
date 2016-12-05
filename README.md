@@ -1,12 +1,14 @@
-istepanov/syncthing
+goldy/syncthing
 ===================
 
-[![Docker Stars](https://img.shields.io/docker/stars/istepanov/syncthing.svg)](https://hub.docker.com/r/istepanov/syncthing/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/istepanov/syncthing.svg)](https://hub.docker.com/r/istepanov/syncthing/)
-[![Docker Build](https://img.shields.io/docker/automated/istepanov/syncthing.svg)](https://hub.docker.com/r/istepanov/syncthing/)
-[![Layers](https://images.microbadger.com/badges/image/istepanov/syncthing.svg)](https://microbadger.com/images/istepanov/syncthing)
-[![Version](https://images.microbadger.com/badges/version/istepanov/syncthing.svg)](https://microbadger.com/images/istepanov/syncthing)
-[![Join the chat at https://gitter.im/istepanov/docker-syncthing](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/istepanov/docker-syncthing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Container based on https://github.com/istepanov/docker-syncthing
+
+[![Docker Stars](https://img.shields.io/docker/stars/goldy/syncthing.svg)](https://hub.docker.com/r/goldy/syncthing/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/goldy/syncthing.svg)](https://hub.docker.com/r/goldy/syncthing/)
+[![Docker Build](https://img.shields.io/docker/automated/goldy/syncthing.svg)](https://hub.docker.com/r/goldy/syncthing/)
+[![Layers](https://images.microbadger.com/badges/image/goldy/syncthing.svg)](https://microbadger.com/images/goldy/syncthing)
+[![Version](https://images.microbadger.com/badges/version/goldy/syncthing.svg)](https://microbadger.com/images/goldy/syncthing)
+
 
 [Syncthing](http://syncthing.net/) Docker image
 
@@ -37,7 +39,7 @@ You can also start the container manually without using Docker Compose:
         -p 8384:8384 -p 22000:22000 -p 21027:21027/udp \
         -v $CONFIG_VOLUME:/home/syncthing/.config/syncthing \
         -v $DATA_VOLUME:/home/syncthing/Sync \
-        istepanov/syncthing
+        goldy/syncthing
 
 _Note_: `--restart always` (or `--restart on-failure` or `--restart unless-stopped`) is required because Syncthing restarts itself during auto-update. Without this option container just stops after first update.
 
