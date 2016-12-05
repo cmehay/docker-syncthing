@@ -2,7 +2,7 @@ version: '2'
 
 services:
   syncthing:
-    image: cmehay/syncthing
+    image: istepanov/syncthing
     restart: always
     ports:
       - "8384:8384"
@@ -11,9 +11,6 @@ services:
     volumes:
       - "config:/home/syncthing/.config/syncthing"
       - "data:/home/syncthing/Sync"
-    environment:
-        ENTRYPOINT_USER: '1000' # optional. 1000 by default
-        ENTRY: '1000' # optional. 1000 by default
 
 volumes:
   config:

@@ -1,7 +1,0 @@
-command: syncthing
-
-user: syncthing
-group: syncthing
-
-pre_conf_commands:
-    - chown -R ${ENTRYPOINT_USER}:${ENTRYPOINT_GROUP} /var/syncthing
