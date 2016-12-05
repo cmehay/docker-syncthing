@@ -41,20 +41,6 @@ You can also start the container manually without using Docker Compose:
 
 _Note_: `--restart always` (or `--restart on-failure` or `--restart unless-stopped`) is required because Syncthing restarts itself during auto-update. Without this option container just stops after first update.
 
-#### Change volume `UID` and `GID`
-
-By default, `UID` and `GID` for the files in sync volume are 1000. You can change this by passing `ENTRYPOINT_USER` and `ENTRYPOINT_GROUP` environment variable to the containers.
-
-    -e ENTRYPOINT_USER=33 -e ENTRYPOINT_GROUP=33
-
-or using `docker-compose.yml` (see example).
-
-```yaml
-    environment:
-        ENTRYPOINT_USER: '33'
-        ENTRYPOINT_GROUP: '33'
-```    
-
 ### Enabling HTTPS for Web UI
 
 The image itself tends to be minimal and doesn't provide any HTTPS functionality. If you want to have a SSL connection between your browser and Syncthing Web UI, you need to put a proxy container that will handle HTTPS connections.
@@ -80,3 +66,4 @@ The easiest way to do it is by using Let's Encrypt certifcates and 3 additional 
     docker-compose -f docker-compose-https.yml up -d
 
 Make sure you set `LETSENCRYPT_EMAIL` and `LETSENCRYPT_EMAIL` env vars before running Docker Compose commands. You can also edit `docker-compose-https.yml` and replace these vars with real values.
+
