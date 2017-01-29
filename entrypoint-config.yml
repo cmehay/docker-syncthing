@@ -4,4 +4,5 @@ user: syncthing
 group: syncthing
 
 pre_conf_commands:
-    - chown -R ${ENTRYPOINT_USER}:${ENTRYPOINT_GROUP} /var/syncthing
+    # Change owner to enable auto-update
+    - chown -R ${ENTRYPOINT_USER}:${ENTRYPOINT_GROUP} /var/syncthing /usr/local/bin/
