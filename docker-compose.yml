@@ -3,6 +3,7 @@ version: '2'
 services:
   syncthing:
     image: goldy/syncthing
+    build: .
     restart: always
     ports:
       - "8384:8384"
