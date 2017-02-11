@@ -4,6 +4,7 @@ services:
 
   syncthing:
     image: goldy/syncthing
+    build: .
     restart: always
     ports:
       - "22000:22000"
