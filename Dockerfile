@@ -34,7 +34,8 @@ RUN apk add --no-cache python3 && \
     pip3 install --upgrade pip setuptools && \
     pip3 install pyentrypoint==0.5.0
 
-ADD entrypoint-config.yml /var/syncthing/
+ADD entrypoint-config.yml /etc/entrypoint-config.yml
+ENV ENTRYPOINT_CONFIG /etc/entrypoint-config.yml
 
 WORKDIR /var/syncthing
 
